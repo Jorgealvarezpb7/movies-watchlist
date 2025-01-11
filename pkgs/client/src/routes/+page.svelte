@@ -9,6 +9,8 @@
   });
 </script>
 
+<a href="/titles/create">Create Title</a>
+
 <h1>Titles</h1>
 
 <table>
