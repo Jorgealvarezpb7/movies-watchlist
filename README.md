@@ -27,13 +27,19 @@ cd ./movies-watchlist
 bun i
 ```
 
-4. Start Docker Compose in Docker for Database and other services:
+4. Copy the `.env.example` to a `.env` file
 
 ```bash
 make services
 ```
 
-5. Run the project:
+5. Start Docker Compose in Docker for Database and other services:
+
+```bash
+make services
+```
+
+6. Run the project:
 
 There is 2 main components on this project, the backend and the frontend.
 
@@ -43,7 +49,7 @@ You should run both of them at the same time, to achieve this you will need
 **Server**
 
 ```bash
-make server
+make serve
 ```
 
 **Client**

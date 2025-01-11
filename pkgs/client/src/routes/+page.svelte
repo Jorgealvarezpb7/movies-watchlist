@@ -28,6 +28,10 @@
         <td>{audienceRating}</td>
         <td>{releaseDate}</td>
       </tr>
+    {:else}
+      <tr>
+        <td colspan="4">No titles available</td>
+      </tr>
     {/each}
   </tbody>
 </table>

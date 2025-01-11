@@ -8,7 +8,7 @@ export const apiV1TitlesRouter: FastifyPluginCallback = (fastify: FastifyInstanc
   });
 
   fastify.post('/', async (request, reply) => {
-    const reqBody = request.body as CreateTitleDto;
+    const reqBody = JSON.parse(request.body as string) as CreateTitleDto;
     const result = await fastify.domain.titles.createTitle({
       title: reqBody.title,
       releaseDate: reqBody.releaseDate,
