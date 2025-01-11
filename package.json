@@ -1,0 +1,4 @@
+{
+  "name": "@jorgealvarezpb7/movies-watchlist",
+  "workspaces": ["pkgs/*"]
+}
