@@ -1,6 +1,7 @@
 import { Repository } from 'typeorm';
 
 import { Title } from './entity';
+import { dot } from 'node:test/reporters';
 
 export type CreateTitleDto = Omit<Title, 'id' | 'createdAt' | 'updatedAt'>;
 
@@ -22,6 +23,7 @@ export class TitleService {
     title.starRating = dto.starRating;
     title.releaseDate = dto.releaseDate;
     title.audienceRating = dto.audienceRating;
+    title.contentType = dto.contentType;
 
     const inserted = await this.titleRepository.insert(title);
 

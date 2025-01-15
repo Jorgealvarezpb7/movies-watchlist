@@ -14,6 +14,11 @@ export enum AudienceRating {
   NC17 = 'ADULTS_ONLY'
 }
 
+export enum ContentType {
+  Movie = 'MOVIE',
+  TVShow = 'TV_SHOW'
+}
+
 /**
  * A Movie or TV Show Series Title
  */
@@ -33,6 +38,13 @@ export class Title {
     default: AudienceRating.R
   })
   audienceRating: AudienceRating;
+
+  @Column({
+    type: 'enum',
+    enum: ContentType,
+    default: ContentType.Movie
+  })
+  contentType: ContentType;
 
   @Column()
   title: string;

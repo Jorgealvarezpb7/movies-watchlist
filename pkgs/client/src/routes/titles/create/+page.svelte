@@ -7,12 +7,23 @@
     NC17: 'ADULTS_ONLY'
   };
 
+  const CONTENT_TYPE = {
+    'TV Show': 'TV_SHOW',
+    Movie: 'MOVIE'
+  };
+
   let title = $state('');
   let releaseDate = $state(new Date().toJSON());
   let starRating = $state(0.0);
   let audienceRating = $state('');
+  let contentType = $state('');
+  let errorMessage = $state('');
 
   async function createTitle() {
+    if (!audienceRating) {
+      errorMessage = 'Audience Rating is required';
+      return;
+    }
     const res = await fetch('/api/v1/titles', {
       method: 'post',
 
@@ -20,7 +31,8 @@
         title,
         releaseDate,
         starRating,
-        audienceRating
+        audienceRating,
+        contentType
       })
     });
 
@@ -33,7 +45,8 @@
   title,
   releaseDate,
   starRating,
-  audienceRating
+  audienceRating,
+  contentType
 })}
 <form class="jorge mx-auto flex w-1/4 flex-col">
   <input class="border border-indigo-400" type="text" bind:value={title} />
@@ -44,8 +57,14 @@
       <option value={AUDIENCE_RATING[label]}>{label}</option>
     {/each}
   </select>
+  <select bind:value={contentType}>
+    {#each Object.keys(CONTENT_TYPE) as label}
+      <option value={CONTENT_TYPE[label]}>{label}</option>
+    {/each}
+  </select>
   <button type="button" onclick={createTitle}>Create</button>
 </form>
+{errorMessage}
 
 <style>
   .jorge {

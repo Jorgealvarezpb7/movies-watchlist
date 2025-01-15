@@ -13,7 +13,8 @@ export const apiV1TitlesRouter: FastifyPluginCallback = (fastify: FastifyInstanc
       title: reqBody.title,
       releaseDate: reqBody.releaseDate,
       starRating: reqBody.starRating,
-      audienceRating: reqBody.audienceRating
+      audienceRating: reqBody.audienceRating,
+      contentType: reqBody.contentType
     });
 
     return reply.status(200).send(result);

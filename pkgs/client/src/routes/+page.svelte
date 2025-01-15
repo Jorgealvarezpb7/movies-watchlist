@@ -1,39 +1,36 @@
 <script lang="ts">
   import { onMount } from 'svelte';
 
+  import Title from '$lib/components/Title.svelte';
+  import TitleList from '$lib/components/TitleList.svelte';
+
   let titles = $state([]);
 
   onMount(async () => {
     const res = await fetch('/api/v1/titles');
     titles = await res.json();
   });
+
+  let tvShows = $derived(titles.filter((t) => t.contentType === 'TV_SHOW'));
+  let movies = $derived(titles.filter((t) => t.contentType === 'MOVIE'));
 </script>
 
 <a href="/titles/create">Create Title</a>
 
 <h1>Titles</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Score</th>
-      <th>Rating</th>
-      <th>Release Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    {#each titles as { title, starRating, audienceRating, releaseDate }}
-      <tr>
-        <td>{title}</td>
-        <td>{starRating}</td>
-        <td>{audienceRating}</td>
-        <td>{releaseDate}</td>
-      </tr>
-    {:else}
-      <tr>
-        <td colspan="4">No titles available</td>
-      </tr>
-    {/each}
-  </tbody>
-</table>
+<TitleList title="TV Shows">
+  {#each tvShows as { title }}
+    <Title {title} coverUrl="https://placehold.co/100x150" />
+  {:else}
+    <p>No TV Shows Available</p>
+  {/each}
+</TitleList>
+
+<TitleList title="Movies">
+  {#each movies as { title }}
+    <Title {title} coverUrl="https://placehold.co/100x150" />
+  {:else}
+    <p>No Movies Available</p>
+  {/each}
+</TitleList>
