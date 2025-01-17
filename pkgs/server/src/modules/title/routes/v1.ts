@@ -14,10 +14,11 @@ export const apiV1TitlesRouter: FastifyPluginCallback = (fastify: FastifyInstanc
       releaseDate: reqBody.releaseDate,
       starRating: reqBody.starRating,
       audienceRating: reqBody.audienceRating,
-      contentType: reqBody.contentType
+      contentType: reqBody.contentType,
+      coverImageId: reqBody.coverImageId,
     });
 
-    return reply.status(200).send(result);
+    return reply.status(201).send(result);
   });
 
   fastify.delete('/:id', async (request, reply) => {

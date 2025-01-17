@@ -3,9 +3,11 @@ import fp from 'fastify-plugin';
 import { DataSource } from 'typeorm';
 
 import { Title, TitleService } from '../../modules/title';
+import { Image, ImageService } from '../../modules/images';
 import { readConfig } from '../config';
 
 export type DomainServices = {
+  images: ImageService;
   titles: TitleService;
 };
 
@@ -23,15 +25,17 @@ export const domainServicesPlugin = fp(async (server) => {
       database: config.postgresDb,
       logging: true,
       synchronize: true,
-      entities: [Title]
+      entities: [Image, Title]
     });
 
     await appDataSource.connect();
     appDataSource.runMigrations();
 
+    const imageRepository = appDataSource.getRepository(Image);
     const titleRepository = appDataSource.getRepository(Title);
     const domainServices: DomainServices = {
-      titles: new TitleService(titleRepository)
+      images: new ImageService(imageRepository),
+      titles: new TitleService(titleRepository),
     };
 
     server.decorate(DOMAIN_SERVICES_PLUGIN_NAME, domainServices);

@@ -176,3 +176,6 @@ dist
 
 # Client
 .svelte-kit
+
+/uploads/*
+!/uploads/.gitkeep

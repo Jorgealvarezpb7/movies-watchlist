@@ -46,6 +46,11 @@ export class Title {
   })
   contentType: ContentType;
 
+  @Column('uuid', {
+    nullable: true
+  })
+  coverImageId?: string;
+
   @Column()
   title: string;
 

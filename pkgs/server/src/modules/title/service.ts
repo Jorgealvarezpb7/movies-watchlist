@@ -24,6 +24,7 @@ export class TitleService {
     title.releaseDate = dto.releaseDate;
     title.audienceRating = dto.audienceRating;
     title.contentType = dto.contentType;
+    title.coverImageId = dto.coverImageId;
 
     const inserted = await this.titleRepository.insert(title);
 

@@ -10,5 +10,5 @@
 
 <li>
   <img alt="Cover for movie {title}" src={coverUrl} height="150" width="100" />
-  <span>{title}</span>
+  <span class="text-sm">{title}</span>
 </li>

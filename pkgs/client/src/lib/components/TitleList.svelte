@@ -8,8 +8,8 @@
   } = $props();
 </script>
 
-<div class="px-4">
-  <h3 class="py-2">{title}</h3>
+<div>
+  <h3 class="section-title py-2">{title}</h3>
   <ul class="flex space-x-4">
     {@render children()}
   </ul>
