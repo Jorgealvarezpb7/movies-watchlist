@@ -1,9 +1,12 @@
 import { Repository } from 'typeorm';
 
 import { Title } from './entity';
-import { dot } from 'node:test/reporters';
 
 export type CreateTitleDto = Omit<Title, 'id' | 'createdAt' | 'updatedAt'>;
+
+export type TitleListItem = Title & {
+  coverImageUrl: string | null;
+};
 
 export class TitleService {
   private titleRepository: Repository<Title>;
@@ -12,8 +15,30 @@ export class TitleService {
     this.titleRepository = titleRepository;
   }
 
-  async getTitles(): Promise<Title[]> {
-    return this.titleRepository.find();
+  async getTitles(): Promise<TitleListItem[]> {
+    const titles = await this.titleRepository.find();
+
+    return titles.map((title) => ({
+      ...title,
+      coverImageUrl: title.coverImageId
+        ? `http://localhost:3000/api/v1/images/${title.coverImageId}`
+        : null
+    }));
+  }
+
+  async getTitleById(id: string): Promise<TitleListItem | null> {
+    const title = await this.titleRepository.findOneById(id);
+
+    if (!title) {
+      return null;
+    }
+
+    return {
+      ...title,
+      coverImageUrl: title.coverImageId
+        ? `http://localhost:3000/api/v1/images/${title.coverImageId}`
+        : null
+    };
   }
 
   async createTitle(dto: CreateTitleDto): Promise<Title[]> {

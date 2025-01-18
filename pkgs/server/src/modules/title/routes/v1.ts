@@ -7,6 +7,22 @@ export const apiV1TitlesRouter: FastifyPluginCallback = (fastify: FastifyInstanc
     return reply.status(200).send(result);
   });
 
+  fastify.get('/:id', async (request, reply) => {
+    const id = request?.params.id as string;
+
+    if (!id) {
+      return reply.status(400).send({ message: 'Id is required' });
+    }
+
+    const maybeTitle = await fastify.domain.titles.getTitleById(id);
+
+    if (!maybeTitle) {
+      return reply.status(400).send({ message: 'Title not found' });
+    }
+
+    return reply.status(200).send(maybeTitle);
+  });
+
   fastify.post('/', async (request, reply) => {
     const reqBody = JSON.parse(request.body as string) as CreateTitleDto;
     const result = await fastify.domain.titles.createTitle({

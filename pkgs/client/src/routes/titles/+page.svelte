@@ -22,16 +22,16 @@
 <h2 class="page-title">Titles</h2>
 
 <TitleList title="TV Shows">
-  {#each tvShows as { title }}
-    <Title {title} coverUrl="https://placehold.co/100x150" />
+  {#each tvShows as { id, title, coverImageUrl }}
+    <Title {id} {title} coverUrl={coverImageUrl} />
   {:else}
     <p class="empty-message">No TV Shows Available</p>
   {/each}
 </TitleList>
 
 <TitleList title="Movies">
-  {#each movies as { title }}
-    <Title {title} coverUrl="https://placehold.co/100x150" />
+  {#each movies as { id, title, coverImageUrl }}
+    <Title {id} {title} coverUrl={coverImageUrl} />
   {:else}
     <p class="empty-message">No Movies Available</p>
   {/each}
