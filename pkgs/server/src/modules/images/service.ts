@@ -17,7 +17,7 @@ export class ImageService {
     this.imageRepository = imageRepository;
   }
 
-  private extensionForFile(mimeType: MimeType): string | null {
+  public extensionForFile(mimeType: MimeType): string | null {
     switch (mimeType) {
       case MimeType.Jpg:
         return 'jpg';
@@ -28,8 +28,23 @@ export class ImageService {
     }
   }
 
-  async findImage(id: string): Promise<string> {
-    throw new Error('Not implemented');
+  /**
+  *
+  * @param image - Image
+  * @returns - String Path to Image in Hard Drive
+  */
+  makeImagePath(image: Image): string {
+    return `./uploads/${image.id}.${this.extensionForFile(image.mimeType)}`;
+  }
+
+  async findImage(id: string): Promise<Image | null> {
+    const image = await this.imageRepository.findOneById(id);
+
+    if (!image) {
+      return null;
+    }
+
+    return image;
   }
 
   async createImage(bytes: Buffer, {

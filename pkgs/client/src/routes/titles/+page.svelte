@@ -22,8 +22,8 @@
 <h2 class="page-title">Titles</h2>
 
 <TitleList title="TV Shows">
-  {#each tvShows as { title }}
-    <Title {title} coverUrl="https://placehold.co/100x150" />
+  {#each tvShows as { title, coverImageUrl }}
+    <Title {title} coverUrl={coverImageUrl} />
   {:else}
     <p class="empty-message">No TV Shows Available</p>
   {/each}

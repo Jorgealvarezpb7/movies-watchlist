@@ -88,15 +88,34 @@
 <h2 class="page-title">Create Title</h2>
 
 <form class="mx-auto flex w-1/4 flex-col">
-  <input class="border border-indigo-400" type="text" bind:value={title} />
-  <input type="date" bind:value={releaseDate} />
-  <input type="number" max="10" min="0" bind:value={starRating} />
-  <input type="file" onchange={handleImageSelection} />
-  <select bind:value={audienceRating}>
+  <label for="title"> Name </label>
+  <input
+    name="title"
+    class="border border-indigo-400"
+    type="text"
+    bind:value={title}
+    placeholder="Name"
+  />
+  <label for="releaseDate"> Release Date </label>
+  <input name="releaseDate" type="date" bind:value={releaseDate} />
+  <label for="starRating"> Rating </label>
+  <input
+    name="starRating"
+    type="number"
+    max="10"
+    min="0"
+    bind:value={starRating}
+    placeholder="Rating"
+  />
+  <label for="cover"> Cover </label>
+  <input name="cover" type="file" onchange={handleImageSelection} />
+  <label for="audienceRating"> Audience Rating </label>
+  <select name="audienceRating" bind:value={audienceRating}>
     {#each Object.keys(AUDIENCE_RATING) as label}
       <option value={AUDIENCE_RATING[label]}>{label}</option>
     {/each}
   </select>
+  <label for="contentType"> Content Type </label>
   <select bind:value={contentType}>
     {#each Object.keys(CONTENT_TYPE) as label}
       <option value={CONTENT_TYPE[label]}>{label}</option>
