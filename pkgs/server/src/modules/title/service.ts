@@ -26,6 +26,21 @@ export class TitleService {
     }));
   }
 
+  async getTitleById(id: string): Promise<TitleListItem | null> {
+    const title = await this.titleRepository.findOneById(id);
+
+    if (!title) {
+      return null;
+    }
+
+    return {
+      ...title,
+      coverImageUrl: title.coverImageId
+        ? `http://localhost:3000/api/v1/images/${title.coverImageId}`
+        : null
+    };
+  }
+
   async createTitle(dto: CreateTitleDto): Promise<Title[]> {
     const title = new Title();
 
