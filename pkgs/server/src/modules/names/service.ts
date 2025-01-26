@@ -2,7 +2,7 @@ import { Repository } from 'typeorm';
 
 import { Name } from './entity';
 
-export type CreateNameDto = Omit<Name, 'id'>;
+export type CreateNameDto = Omit<Name, 'id' | 'createdAt' | 'updatedAt'>;
 
 export class NameService {
   private nameRepository: Repository<Name>;
