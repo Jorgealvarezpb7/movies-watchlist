@@ -28,7 +28,7 @@ export const domainServicesPlugin = fp(async (server) => {
       database: config.postgresDb,
       logging: true,
       synchronize: true,
-      entities: [Image, Title]
+      entities: [Image, Name, Title]
     });
 
     await appDataSource.connect();
