@@ -4,10 +4,13 @@ import { DataSource } from 'typeorm';
 
 import { Title, TitleService } from '../../modules/title';
 import { Image, ImageService } from '../../modules/images';
+import { Name, NameService } from '../../modules/names';
+
 import { readConfig } from '../config';
 
 export type DomainServices = {
   images: ImageService;
+  names: NameService;
   titles: TitleService;
 };
 
@@ -32,9 +35,11 @@ export const domainServicesPlugin = fp(async (server) => {
     appDataSource.runMigrations();
 
     const imageRepository = appDataSource.getRepository(Image);
+    const nameRepository = appDataSource.getRepository(Name);
     const titleRepository = appDataSource.getRepository(Title);
     const domainServices: DomainServices = {
       images: new ImageService(imageRepository),
+      names: new NameService(nameRepository),
       titles: new TitleService(titleRepository),
     };
 
