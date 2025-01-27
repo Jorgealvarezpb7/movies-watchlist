@@ -1,3 +1,3 @@
 export { NameService } from './service';
-export { nameRoutes } from './routes';
-export { Name } from './entity';
+export { namesRoutes } from './routes';
+export * from './entities';

@@ -1,18 +1,24 @@
 import { Repository } from 'typeorm';
 
-import { Name } from './entity';
+import { Name, NameProfession } from './entities';
 
-export type CreateNameDto = Omit<Name, 'id'>;
+export type CreateNameDto = Omit<Name, 'id' | 'createdAt' | 'updatedAt'>;
 
 export class NameService {
   private nameRepository: Repository<Name>;
+  private nameProfessionRepository: Repository<NameProfession>;
 
-  constructor(nameRepository: Repository<Name>) {
+  constructor(nameRepository: Repository<Name>, nameProfessionRepository: Repository<NameProfession>) {
     this.nameRepository = nameRepository;
+    this.nameProfessionRepository = nameProfessionRepository;
   }
 
   async getNames(): Promise<Name[]> {
-    return await this.nameRepository.find();
+    return await this.nameRepository.find({
+      relations: {
+        professions: true
+      }
+    });
   }
 
   async getNameById(id: string): Promise<Name | null> {

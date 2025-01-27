@@ -3,8 +3,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  OneToMany
 } from 'typeorm';
+
+import { NameProfession } from './NameProfession';
 
 @Entity({
   name: 'names'
@@ -27,4 +30,7 @@ export class Name {
 
   @UpdateDateColumn()
   updatedAt: string;
+
+  @OneToMany(() => NameProfession, (nameProfession) => nameProfession.name)
+  professions: NameProfession[]
 }

@@ -4,7 +4,7 @@ import { DataSource } from 'typeorm';
 
 import { Title, TitleService } from '../../modules/title';
 import { Image, ImageService } from '../../modules/images';
-import { Name, NameService } from '../../modules/names';
+import { Name, NameService, NameProfession } from '../../modules/names';
 
 import { readConfig } from '../config';
 
@@ -28,7 +28,7 @@ export const domainServicesPlugin = fp(async (server) => {
       database: config.postgresDb,
       logging: true,
       synchronize: true,
-      entities: [Image, Name, Title]
+      entities: [Image, Name, NameProfession, Title]
     });
 
     await appDataSource.connect();
@@ -36,10 +36,11 @@ export const domainServicesPlugin = fp(async (server) => {
 
     const imageRepository = appDataSource.getRepository(Image);
     const nameRepository = appDataSource.getRepository(Name);
+    const nameProfessionRepository = appDataSource.getRepository(NameProfession);
     const titleRepository = appDataSource.getRepository(Title);
     const domainServices: DomainServices = {
       images: new ImageService(imageRepository),
-      names: new NameService(nameRepository),
+      names: new NameService(nameRepository, nameProfessionRepository),
       titles: new TitleService(titleRepository),
     };
 

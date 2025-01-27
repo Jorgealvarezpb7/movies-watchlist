@@ -29,6 +29,7 @@ export const apiV1NamesRouter: FastifyPluginCallback = (fastify: FastifyInstance
       name: reqBody.name,
       birthDate: reqBody.birthDate,
       deathDate: reqBody.deathDate,
+      professions: reqBody.professions
     });
 
     return reply.status(201).send(result);
