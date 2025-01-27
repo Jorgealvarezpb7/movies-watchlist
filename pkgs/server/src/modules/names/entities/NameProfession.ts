@@ -3,10 +3,12 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  type Relation
 } from 'typeorm';
 
-import { Name } from '../names';
+import { Name } from './Name';
 
 export enum Profession {
     Actor = 'ACTOR',
@@ -17,11 +19,11 @@ export enum Profession {
   }
 
 @Entity({
-  name: 'nameProfession',
+  name: 'name_profession',
 })
 export class NameProfession {
-  @Column('uuid')
-  nameId: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({
     type: 'enum',
@@ -36,5 +38,5 @@ export class NameProfession {
   updatedAt: string;
 
   @ManyToOne(() => Name, (name) => name.professions)
-  name: Name;
+  name: Relation<Name>;
 }

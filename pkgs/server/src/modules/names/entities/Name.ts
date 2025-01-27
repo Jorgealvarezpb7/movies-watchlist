@@ -6,7 +6,8 @@ import {
   UpdateDateColumn,
   OneToMany
 } from 'typeorm';
-import { NameProfession } from '../nameProfession/entity';
+
+import { NameProfession } from './NameProfession';
 
 @Entity({
   name: 'names'
@@ -30,6 +31,6 @@ export class Name {
   @UpdateDateColumn()
   updatedAt: string;
 
-  @OneToMany(() => NameProfession, (nameProfession) => nameProfession.profession)
+  @OneToMany(() => NameProfession, (nameProfession) => nameProfession.name)
   professions: NameProfession[]
 }

@@ -4,15 +4,13 @@ import { DataSource } from 'typeorm';
 
 import { Title, TitleService } from '../../modules/title';
 import { Image, ImageService } from '../../modules/images';
-import { Name, NameService } from '../../modules/names';
-import { NameProfession, NameProfessionService } from '../../modules/nameProfession';
+import { Name, NameService, NameProfession } from '../../modules/names';
 
 import { readConfig } from '../config';
 
 export type DomainServices = {
   images: ImageService;
   names: NameService;
-  nameProfessions: NameProfessionService;
   titles: TitleService;
 };
 
@@ -42,8 +40,7 @@ export const domainServicesPlugin = fp(async (server) => {
     const titleRepository = appDataSource.getRepository(Title);
     const domainServices: DomainServices = {
       images: new ImageService(imageRepository),
-      names: new NameService(nameRepository),
-      nameProfessions: new NameProfessionService(nameProfessionRepository),
+      names: new NameService(nameRepository, nameProfessionRepository),
       titles: new TitleService(titleRepository),
     };
 
