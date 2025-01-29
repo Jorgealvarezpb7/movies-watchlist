@@ -4,10 +4,13 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany
+  OneToMany,
+  ManyToMany,
+  JoinTable
 } from 'typeorm';
 
 import { NameProfession } from './NameProfession';
+import { Title } from '../../title';
 
 @Entity({
   name: 'names'
@@ -33,4 +36,8 @@ export class Name {
 
   @OneToMany(() => NameProfession, (nameProfession) => nameProfession.name)
   professions: NameProfession[]
+
+  @ManyToMany(() => Title)
+  @JoinTable()
+  titles: Title[]
 }
